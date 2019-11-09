@@ -13,6 +13,7 @@ where
     Digits::from(digits)
 }
 
+#[derive(PartialEq, Debug)]
 pub struct Digits {
     digits: Vec<Digit>,
 }
@@ -20,14 +21,6 @@ pub struct Digits {
 impl From<Vec<Digit>> for Digits {
     fn from(digits: Vec<Digit>) -> Self {
         Self { digits }
-    }
-}
-
-impl From<[Digit; 4]> for Digits {
-    fn from(digits: [Digit; 4]) -> Self {
-        Self {
-            digits: digits.to_vec(),
-        }
     }
 }
 
@@ -88,9 +81,47 @@ impl fmt::Display for Digit {
     }
 }
 
+macro_rules! from_for_digit {
+    ($n:expr) => {
+        impl From<[Digit; $n]> for Digits {
+            fn from(digits: [Digit; $n]) -> Self {
+                Self {
+                    digits: digits.to_vec(),
+                }
+            }
+        }
+    };
+}
+
+from_for_digit!(1);
+from_for_digit!(2);
+from_for_digit!(3);
+from_for_digit!(4);
+from_for_digit!(5);
+from_for_digit!(6);
+from_for_digit!(7);
+from_for_digit!(8);
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn digits_should_be_able_to_be_constructed_from_arrays() {
+        assert_eq!(Digits::from([Digit::One]), Digits::from(vec![Digit::One]));
+        assert_eq!(
+            Digits::from([Digit::One, Digit::Two]),
+            Digits::from(vec![Digit::One, Digit::Two])
+        );
+        assert_eq!(
+            Digits::from([Digit::One, Digit::Two, Digit::Three]),
+            Digits::from(vec![Digit::One, Digit::Two, Digit::Three])
+        );
+        assert_eq!(
+            Digits::from([Digit::One, Digit::Two, Digit::Three, Digit::Four]),
+            Digits::from(vec![Digit::One, Digit::Two, Digit::Three, Digit::Four])
+        );
+    }
 
     #[test]
     fn digit_should_display_correctly() {
