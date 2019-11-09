@@ -1,6 +1,6 @@
 use std::fmt;
 
-pub fn numbers_for<S>(input: S) -> Digits
+pub fn digits_for<S>(input: S) -> Digits
 where
     S: Into<String>,
 {

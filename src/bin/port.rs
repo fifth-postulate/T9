@@ -7,6 +7,6 @@ fn main() {
     let args: Vec<String> = env::args().collect();
 
     let port_name = &args[1];
-    let port = pad::numbers_for(port_name);
+    let port = pad::digits_for(port_name);
     println!("{}", port)
 }
