@@ -6,7 +6,9 @@ I learned a neat trick from [ag_dubs][] to come up with ports for your applicati
 
 The trick is to take a word that is relevant for your application and looking at the keypad of a phone.
 
-![Keypad of a phone used by T9](https://commons.wikimedia.org/wiki/File:Telephone-keypad2.svg#/media/File:Telephone-keypad2.svg)
+![Keypad of a phone used by T9](http://fifth-postulate.nl/T9/image/Telephone-keypad2.svg)
+
+> By Sakurambo - Created using Adobe Illustrator CS2, Public Domain, [https://commons.wikimedia.org/w/index.php?curid=2048341](https://commons.wikimedia.org/w/index.php?curid=2048341)
 
 Lookup the corresponding number for each letter and that will be your port number.
 
