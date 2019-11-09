@@ -10,5 +10,17 @@ The trick is to take a word that is relevant for your application and looking at
 
 Lookup the corresponding number for each letter and that will be your port number.
 
+### Example
+Let's take the word `rust`. Looking at the a keypad we find the following numbers
+
+| Letter | Number |
+|--------|--------|
+| r      | 7      |
+| u      | 8      |
+| s      | 7      |
+| t      | 8      |
+
+To the port number for your application would be `7878`.
+
 [ag_dubs]: https://twitter.com/ag_dubs
 [rustbridge]: https://rustbridge.com/
