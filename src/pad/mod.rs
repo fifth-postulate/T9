@@ -8,7 +8,7 @@ where
     let digits: Vec<Digit> = input
         .chars()
         .filter(|c| c.is_ascii_alphabetic())
-        .map(|c| Digit::from(c))
+        .map(Digit::from)
         .collect();
     Digits::from(digits)
 }
@@ -19,7 +19,7 @@ pub struct Digits {
 
 impl From<Vec<Digit>> for Digits {
     fn from(digits: Vec<Digit>) -> Self {
-        Self { digits: digits }
+        Self { digits }
     }
 }
 
