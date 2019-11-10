@@ -18,6 +18,18 @@ pub struct Digits {
     digits: Vec<Digit>,
 }
 
+impl Digits {
+    pub fn head(&self) -> Option<&Digit> {
+        self.digits.get(0)
+    }
+
+    pub fn tail(&self) -> Digits {
+        Self {
+            digits: self.digits[1..].to_vec(),
+        }
+    }
+}
+
 impl From<Vec<Digit>> for Digits {
     fn from(digits: Vec<Digit>) -> Self {
         Self { digits }
@@ -33,7 +45,7 @@ impl fmt::Display for Digits {
     }
 }
 
-#[derive(Copy, Clone, PartialEq, Debug)]
+#[derive(Copy, Clone, PartialEq, Eq, Hash, Debug)]
 pub enum Digit {
     One,
     Two,
