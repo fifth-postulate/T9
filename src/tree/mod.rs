@@ -1,4 +1,6 @@
-//! Allows for reverse lookup of T9
+//! Allows for reverse lookup of ports with T9 predictive text
+//! 
+//! ```
 //! # extern crate t9;
 //! # use t9::{pad, tree::Tree};
 //! # fn check_that_7878_corresponds_to_rust() {
@@ -8,6 +10,9 @@
 //! let words = tree.words_at(digits);
 //! assert!(words.contains(String::from("rust"));
 //! # }
+//! ```
+//! 
+//! You can find several examples at this crates repository.
 use std::collections::HashMap;
 
 use crate::pad::{digits_for, Digit, Digits};
