@@ -2,6 +2,9 @@
 name = "t9"
 version = "0.1.0"
 authors = ["Daan van Berkel <daan.van.berkel@alliander.com>"]
+description = "Easily create port number from words and vice versa"
+license = "MIT"
+keywords = ["predictive test", "T9"]
 edition = "2018"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
