@@ -1,12 +1,20 @@
 extern crate t9;
 
-use std::env;
+use clap::{Arg, App};
 use t9::pad;
 
 fn main() {
-    let args: Vec<String> = env::args().collect();
+    let matches = App::new("port")
+                          .version("0.1.0")
+                          .author("Daan van Berkel <daan.v.berkel.1980@gmail.com>")
+                          .about("create port numbers from words")
+                         .arg(Arg::with_name("word")
+                               .help("the word to turn into a port number")
+                               .required(true)
+                               .index(1))                         
+                         .get_matches();
 
-    let port_name = &args[1];
-    let port = pad::digits_for(port_name);
+    let word = matches.value_of("word").unwrap(); // safe because the word is required
+    let port = pad::digits_for(word);
     println!("{}", port)
 }
