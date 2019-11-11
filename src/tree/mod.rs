@@ -8,7 +8,7 @@
 //! # tree.add("rust");
 //! let digits = pad::digits_for("7878`");
 //! let words = tree.words_at(digits);
-//! assert!(words.contains(&String::from("rust")));
+//! assert!(words.contains(&"rust"));
 //! # }
 //! ```
 //!
@@ -76,7 +76,7 @@ impl Tree {
     }
 
     /// Returns all words found at the exact sequence of digits
-    pub fn words_at<D>(&self, digits: D) -> Vec<String>
+    pub fn words_at<D>(&self, digits: D) -> Vec<&str>
     where
         D: Into<Digits>,
     {
@@ -87,7 +87,7 @@ impl Tree {
                 current = self.nodes[*index].subtrees.get(digit);
                 digits = digits.tail();
             } else {
-                return self.nodes[*index].words.to_vec();
+                return self.nodes[*index].words.iter().map(AsRef::as_ref).collect();
             }
         }
         vec![]
