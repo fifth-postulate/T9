@@ -24,5 +24,61 @@ Let's take the word `rust`. Looking at the a keypad we find the following number
 
 To the port number for your application would be `7878`.
 
+## Hard work
+Figuring out the correct keypad is hard work. Luckily that weher the `t9` crate comes in. The following code could be used to figure the corresponding port for rust as well.
+
+```rust
+extern crate t9;
+
+use std::env;
+use t9::pad;
+
+fn main() {
+    let args: Vec<String> = env::args().collect();
+
+    let port_name = &args[1];
+    let port = pad::digits_for(port_name);
+    println!("{}", port)
+}
+```
+
+Calling it with `cargo run --examples port -- rust` returns `7878` as expected. [`port.rs`][port] can be found in the examples directory.
+
+## Reverse lookup
+`t9` also allows you to do a reverse lookup. I.e., what word was used for a given port number?
+
+```rust
+extern crate t9;
+
+use std::env;
+use std::fs::File;
+use std::io::{self, BufRead, BufReader};
+use t9::{pad, tree::Tree};
+
+fn main() -> io::Result<()> {
+    let mut tree = Tree::empty();
+    let file = File::open("/usr/share/dict/american-english")?;
+    let reader = BufReader::new(file);
+    for word in reader.lines() {
+        tree.add(word?);
+    }
+
+    let args: Vec<String> = env::args().collect();
+
+    let port = &args[1];
+    let digits = pad::digits_for(port);
+    let words = tree.words_at(digits);
+    for word in words {
+        println!("{}", word)
+    }
+    Ok(())
+}
+```
+
+Run with `cargo run --release --example t9 -- 7878` returns the `rust` as expected. An more elaborate [example][t9], allowing you to specify the dictionary file, can be found in the examples directory.
+
 [ag_dubs]: https://twitter.com/ag_dubs
 [rustbridge]: https://rustbridge.com/
+[port]: https://github.com/fifth-postulate/T9/blob/master/examples/port.rs 
+[t9]: https://github.com/fifth-postulate/T9/blob/master/examples/t9.rs 
+
