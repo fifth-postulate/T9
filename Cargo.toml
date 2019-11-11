@@ -9,5 +9,8 @@ license = "MIT"
 keywords = ["predictive", "text", "T9"]
 edition = "2018"
 
+[badges]
+travis-ci = { repository = "fifth-postulate/T9" }
+
 [dependencies]
 clap = "2.33.0"
