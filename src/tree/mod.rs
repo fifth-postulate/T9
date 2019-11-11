@@ -1,5 +1,5 @@
 //! Allows for reverse lookup of ports with T9 predictive text
-//! 
+//!
 //! ```
 //! # extern crate t9;
 //! # use t9::{pad, tree::Tree};
@@ -8,10 +8,10 @@
 //! # tree.add("rust");
 //! let digits = pad::digits_for("7878`");
 //! let words = tree.words_at(digits);
-//! assert!(words.contains(String::from("rust"));
+//! assert!(words.contains(&String::from("rust")));
 //! # }
 //! ```
-//! 
+//!
 //! You can find several examples at this crates repository.
 use std::collections::HashMap;
 

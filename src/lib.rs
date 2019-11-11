@@ -26,7 +26,7 @@
 //! # tree.add("rust");
 //! let digits = pad::digits_for("7878`");
 //! let words = tree.words_at(digits);
-//! assert!(words.contains(String::from("rust"));
+//! assert!(words.contains(&String::from("rust")));
 //! # }
 //! ```
 pub mod pad;

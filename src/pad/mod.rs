@@ -58,7 +58,7 @@ impl Digits {
     /// # fn tail_should_work_correctly() {
     /// assert_eq!(Digits::from(vec![Digit::Two, Digit::One]).tail(), Digits::from(vec![Digit::One]));
     /// assert_eq!(Digits::from(vec![]).tail(), Digits::from(vec![]));
-    /// #}
+    /// # }
     /// ```
     pub fn tail(&self) -> Digits {
         Self {
