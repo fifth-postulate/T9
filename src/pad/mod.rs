@@ -1,5 +1,19 @@
+//! Converts from a word to keypad digits
+//!
+//! ```
+//! # extern crate t9;
+//! # use t9::pad;
+//! # fn check_that_rust_corresponds_to_7878() {
+//! let digits = pad::digits_for("rust");
+//! let output = digits.to_string();
+//! assert_eq!(output, String::from("7878"));
+//! # }
+//! ```
 use std::fmt;
 
+/// Takes an input word and returns the corresponding T9 digits needed to return the word.
+///
+/// See [wikipedia](https://en.wikipedia.org/wiki/T9_%28predictive_text%29) for more information about T9.
 pub fn digits_for<S>(input: S) -> Digits
 where
     S: Into<String>,
@@ -13,16 +27,39 @@ where
     Digits::from(digits)
 }
 
+/// A wrapper for a sequence of `Digit`s.
 #[derive(PartialEq, Debug)]
 pub struct Digits {
     digits: Vec<Digit>,
 }
 
 impl Digits {
+    /// Returns the first `Digit` of this sequence.
+    ///
+    /// ```
+    /// # extern crate t9;
+    /// # use t9::pad::{Digit, Digits};
+    /// # fn head_should_work_correctly() {
+    /// assert_eq!(Digits::from(vec![Digit::Two, Digit::One]).head(), Some(&Digit::Two));
+    /// assert_eq!(Digits::from(vec![]).head(), None);
+    /// # }
+    /// ```
+    ///
+    /// Note that the sequence can be empty. In that case it will return `None`.
     pub fn head(&self) -> Option<&Digit> {
         self.digits.get(0)
     }
 
+    /// Returns the tail of this sequence.
+    ///
+    /// ```
+    /// # extern crate t9;
+    /// # use t9::pad::{Digit, Digits};
+    /// # fn tail_should_work_correctly() {
+    /// assert_eq!(Digits::from(vec![Digit::Two, Digit::One]).tail(), Digits::from(vec![Digit::One]));
+    /// assert_eq!(Digits::from(vec![]).tail(), Digits::from(vec![]));
+    /// }
+    /// ```
     pub fn tail(&self) -> Digits {
         Self {
             digits: self.digits[1..].to_vec(),
@@ -45,17 +82,28 @@ impl fmt::Display for Digits {
     }
 }
 
+/// A digit that can be used with T9.
 #[derive(Copy, Clone, PartialEq, Eq, Hash, Debug)]
 pub enum Digit {
+    /// Corresponds with button 1, not used for T9, kept for completeness
     One,
+    /// Corresponds with button 2
     Two,
+    /// Corresponds with button 3
     Three,
+    /// Corresponds with button 4
     Four,
+    /// Corresponds with button 5
     Five,
+    /// Corresponds with button 6
     Six,
+    /// Corresponds with button 7
     Seven,
+    /// Corresponds with button 8
     Eight,
+    /// Corresponds with button 9
     Nine,
+    /// Corresponds with button 0, not used for T9, kept for completeness
     Zero,
 }
 

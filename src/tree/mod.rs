@@ -1,7 +1,18 @@
+//! Allows for reverse lookup of T9
+//! # extern crate t9;
+//! # use t9::{pad, tree::Tree};
+//! # fn check_that_7878_corresponds_to_rust() {
+//! # let mut tree = Tree::empty();
+//! # tree.add("rust");
+//! let digits = pad::digits_for("7878`");
+//! let words = tree.words_at(digits);
+//! assert!(words.contains(String::from("rust"));
+//! # }
 use std::collections::HashMap;
 
 use crate::pad::{digits_for, Digit, Digits};
 
+/// A Tree that keeps track of all words reachable with a certain sequence of digits
 #[derive(Debug)]
 pub struct Tree {
     nodes: Vec<Node>,
@@ -9,6 +20,7 @@ pub struct Tree {
 }
 
 impl Tree {
+    /// Creates an empty tree
     pub fn empty() -> Self {
         Self {
             nodes: Vec::new(),
@@ -16,6 +28,9 @@ impl Tree {
         }
     }
 
+    /// Add a word to the tree
+    ///
+    /// This takes care of placing it in the right position in the tree.
     pub fn add<S>(&mut self, word: S)
     where
         S: Into<String>,
@@ -55,6 +70,7 @@ impl Tree {
         }
     }
 
+    /// Returns all words found at the exact sequence of digits
     pub fn words_at<D>(&self, digits: D) -> Vec<String>
     where
         D: Into<Digits>,
@@ -66,7 +82,7 @@ impl Tree {
                 current = self.nodes[*index].subtrees.get(digit);
                 digits = digits.tail();
             } else {
-                return self.nodes[*index].words.iter().cloned().collect();
+                return self.nodes[*index].words.to_vec();
             }
         }
         vec![]
