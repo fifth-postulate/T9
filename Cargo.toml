@@ -10,3 +10,4 @@ keywords = ["predictive", "text", "T9"]
 edition = "2018"
 
 [dependencies]
+clap = "2.33.0"
