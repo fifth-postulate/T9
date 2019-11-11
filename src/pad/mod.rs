@@ -7,7 +7,7 @@ where
     let input = input.into();
     let digits: Vec<Digit> = input
         .chars()
-        .filter(|c| c.is_ascii_alphabetic())
+        .filter(|c| c.is_ascii())
         .map(Digit::from)
         .collect();
     Digits::from(digits)
@@ -62,14 +62,15 @@ pub enum Digit {
 impl From<char> for Digit {
     fn from(character: char) -> Self {
         match character {
-            'a' | 'b' | 'c' | 'A' | 'B' | 'C' => Digit::Two,
-            'd' | 'e' | 'f' | 'D' | 'E' | 'F' => Digit::Three,
-            'g' | 'h' | 'i' | 'G' | 'H' | 'I' => Digit::Four,
-            'j' | 'k' | 'l' | 'J' | 'K' | 'L' => Digit::Five,
-            'm' | 'n' | 'o' | 'M' | 'N' | 'O' => Digit::Six,
-            'p' | 'q' | 'r' | 's' | 'P' | 'Q' | 'R' | 'S' => Digit::Seven,
-            't' | 'u' | 'v' | 'T' | 'U' | 'V' => Digit::Eight,
-            'w' | 'x' | 'y' | 'z' | 'W' | 'X' | 'Y' | 'Z' => Digit::Nine,
+            '1' => Digit::One,
+            '2' | 'a' | 'b' | 'c' | 'A' | 'B' | 'C' => Digit::Two,
+            '3' | 'd' | 'e' | 'f' | 'D' | 'E' | 'F' => Digit::Three,
+            '4' | 'g' | 'h' | 'i' | 'G' | 'H' | 'I' => Digit::Four,
+            '5' | 'j' | 'k' | 'l' | 'J' | 'K' | 'L' => Digit::Five,
+            '6' | 'm' | 'n' | 'o' | 'M' | 'N' | 'O' => Digit::Six,
+            '7' | 'p' | 'q' | 'r' | 's' | 'P' | 'Q' | 'R' | 'S' => Digit::Seven,
+            '8' | 't' | 'u' | 'v' | 'T' | 'U' | 'V' => Digit::Eight,
+            '9' | 'w' | 'x' | 'y' | 'z' | 'W' | 'X' | 'Y' | 'Z' => Digit::Nine,
             _ => Digit::Zero,
         }
     }
@@ -93,7 +94,7 @@ impl fmt::Display for Digit {
     }
 }
 
-macro_rules! from_for_digit {
+macro_rules! from_for_digits {
     ($n:expr) => {
         impl From<[Digit; $n]> for Digits {
             fn from(digits: [Digit; $n]) -> Self {
@@ -105,14 +106,14 @@ macro_rules! from_for_digit {
     };
 }
 
-from_for_digit!(1);
-from_for_digit!(2);
-from_for_digit!(3);
-from_for_digit!(4);
-from_for_digit!(5);
-from_for_digit!(6);
-from_for_digit!(7);
-from_for_digit!(8);
+from_for_digits!(1);
+from_for_digits!(2);
+from_for_digits!(3);
+from_for_digits!(4);
+from_for_digits!(5);
+from_for_digits!(6);
+from_for_digits!(7);
+from_for_digits!(8);
 
 #[cfg(test)]
 mod tests {
@@ -158,6 +159,16 @@ mod tests {
     #[test]
     fn character_should_be_transformed_into_digit() {
         for (character, expected) in [
+            ('1', Digit::One),
+            ('2', Digit::Two),
+            ('3', Digit::Three),
+            ('4', Digit::Four),
+            ('5', Digit::Five),
+            ('6', Digit::Six),
+            ('7', Digit::Seven),
+            ('8', Digit::Eight),
+            ('9', Digit::Nine),
+            ('0', Digit::Zero),
             ('a', Digit::Two),
             ('b', Digit::Two),
             ('c', Digit::Two),
@@ -215,5 +226,13 @@ mod tests {
         {
             assert_eq!(Digit::from(*character), *expected);
         }
+    }
+
+    #[test]
+    fn digit_for_should_return_with_correct_digits() {
+        let actual = digits_for("rust");
+
+        let expected = Digits::from([Digit::Seven, Digit::Eight, Digit::Seven, Digit::Eight]);
+        assert_eq!(actual, expected);
     }
 }
